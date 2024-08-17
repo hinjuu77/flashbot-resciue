@@ -4,11 +4,11 @@ const { exit } = require('process');
 require('dotenv').config();
 
 // sepolia
-const FLASHBOTS_ENDPOINT = 'https://relay-sepolia.flashbots.net'//change for mainnet
-const CHAIN_ID = 11155111;
-const recipientAddress = ""; // Address where you want to send ERC20 tokens
-const tokenAddress = ""; // Address of the ERC20 token contract
-const amount = ethers.parseUnits("1000", 18); //change accordingly
+const FLASHBOTS_ENDPOINT = 'https://rpc.ankr.com/eth'//change for mainnet
+const CHAIN_ID = 1;
+const recipientAddress = "0x19cafa1a6fe4c7aeaf10ae94dcf5eb277506be2e"; // Address where you want to send ERC20 tokens
+const tokenAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7"; // Address of the ERC20 token contract
+const amount = ethers.parseUnits("3", 18); //change accordingly
 
 // mainnet
 // const FLASHBOTS_ENDPOINT = "https://relay.flashbots.net";
@@ -49,11 +49,11 @@ const main = async () => {
             transaction: {
                 chainId: CHAIN_ID,
                 type: 2, // EIP 1559
-                value: ethers.parseEther("0.01"),
+                value: ethers.parseEther("0.0004"),
                 to: compromised.address,
-                maxFeePerGas: ethers.parseUnits("100", "gwei"),
-                maxPriorityFeePerGas: ethers.parseUnits("50", "gwei"),
-                gasLimit: 50000,
+                maxFeePerGas: ethers.parseUnits("2", "gwei"),
+                maxPriorityFeePerGas: ethers.parseUnits("1", "gwei"),
+                gasLimit: 21000,
             }, 
             signer: sponsor, // ethers signer
         },
@@ -63,9 +63,9 @@ const main = async () => {
                 type: 2, // EIP 1559
                 value: 0,
                 to: tokenAddress, //contract address
-                maxFeePerGas: ethers.parseUnits("100", "gwei"),
-                maxPriorityFeePerGas: ethers.parseUnits("50", "gwei"),
-                gasLimit: 100000,
+                maxFeePerGas: ethers.parseUnits("2", "gwei"),
+                maxPriorityFeePerGas: ethers.parseUnits("1", "gwei"),
+                gasLimit: 60000,
                 data: transactionData,
             },
             signer: compromised, // ethers signer
